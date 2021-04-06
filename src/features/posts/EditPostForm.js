@@ -29,6 +29,7 @@ export const EditPostForm = ({ match }) => {
 
   const onDeletePostClicked = () => {
     dispatch(postDeleted({ id: postId }));
+    history.push(`/`);
   };
 
   return (

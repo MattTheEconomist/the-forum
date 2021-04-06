@@ -61,7 +61,7 @@ const postsSlice = createSlice({
       // existingPost.content = "";
       // existingPost.title = "";
 
-      state = state.filter((post) => post.id !== id);
+      return state.filter((post) => post.id !== id);
     },
   },
 });
