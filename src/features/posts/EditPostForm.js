@@ -4,13 +4,16 @@ import { useHistory } from "react-router-dom";
 
 import { postUpdated, postDeleted } from "./postsSlice";
 
+import { selectPostById } from "./postsSlice";
+
 export const EditPostForm = ({ match }) => {
   const { postId } = match.params;
 
-  const post = useSelector((state) =>
-    state.posts.find((post) => post.id === postId)
-  );
+  //   const post = useSelector((state) =>
+  //     state.posts.find((post) => post.id === postId)
+  //   );
 
+  const post = useSelector((state) => selectPostById(state, postId));
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
 
