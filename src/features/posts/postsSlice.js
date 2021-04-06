@@ -31,12 +31,38 @@ const postsSlice = createSlice({
       }
     },
 
-    // postDeleted(state, action) {
-    //   const { id } = action.payload;
-    //   // state.filter((post) => post.id !== id);
-    //   const existingPost = state.find((post) => post.id === id);
-    //   existingPost.content = "poop";
-    // },
+    postDeleted(state, action) {
+      const { id } = action.payload;
+
+      // const tempState = state.filter((post) => post.id !== action.payload);
+      // state = tempState;
+
+      // return state.push(id);
+
+      // state.slice(1, 0);
+      // const tempState = state.filter((post) => post.id === id);
+      // state = tempState;
+
+      // return state.filter((post) => post.id !== id);
+      // state = state.filter((post) => post.id !== action.payload);
+      // posts: state.filter((post) => post.id !== action.payload);
+      // state = [...state, state.filter((post) => post.id !== action.payload)];
+      // const existingPost = state.find((post) => post.id === id);
+      // delete state.existingPost;
+      // existingPost.content = "poop";
+
+      // const ind = state.map((item) => item.id).indexOf(action.id);
+      // const stateTemp = [...state.slice(0, ind), ...state.slice(ind + 1)];
+
+      // return stateTemp;
+
+      //this is the only thing that works.
+      // const existingPost = state.find((post) => post.id === id);
+      // existingPost.content = "";
+      // existingPost.title = "";
+
+      state = state.filter((post) => post.id !== id);
+    },
   },
 });
 

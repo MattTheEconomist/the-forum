@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import {
-  postUpdated,
-  //  postDeleted
-} from "./postsSlice";
+import { postUpdated, postDeleted } from "./postsSlice";
 
 export const EditPostForm = ({ match }) => {
   const { postId } = match.params;
@@ -30,9 +27,9 @@ export const EditPostForm = ({ match }) => {
     }
   };
 
-  //   const onDeletePostClicked = () => {
-  //     dispatch(postDeleted({ id: postId }));
-  //   };
+  const onDeletePostClicked = () => {
+    dispatch(postDeleted({ id: postId }));
+  };
 
   return (
     <section>
@@ -59,9 +56,9 @@ export const EditPostForm = ({ match }) => {
         Save Post
       </button>
 
-      {/* <button type="button" onClick={onDeletePostClicked}>
+      <button type="button" onClick={onDeletePostClicked}>
         X
-      </button> */}
+      </button>
     </section>
   );
 };
