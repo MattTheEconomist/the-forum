@@ -1,5 +1,6 @@
 :root {
-  --redux-color: #764abc;
+  /* --redux-color: #764abc; */
+  --redux-color: teal;
 }
 
 body {
