@@ -1,8 +1,30 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = [
-  { id: "1", title: "First Post!", content: "Hello!" },
-  { id: "2", title: "Second Post", content: "More text" },
+  {
+    id: "1",
+    title: "First Post!",
+    content: "Hello!",
+    reactions: {
+      thumbsUp: 0,
+      hooray: 0,
+      heart: 0,
+      rocket: 0,
+      eyes: 0,
+    },
+  },
+  {
+    id: "2",
+    title: "Second Post",
+    content: "More text",
+    reactions: {
+      thumbsUp: 0,
+      hooray: 0,
+      heart: 0,
+      rocket: 0,
+      eyes: 0,
+    },
+  },
 ];
 const postsSlice = createSlice({
   name: "posts",
@@ -12,15 +34,30 @@ const postsSlice = createSlice({
       reducer(state, action) {
         state.push(action.payload);
       },
-      prepare(title, content) {
+      prepare(title, content, userId) {
         return {
           payload: {
             id: nanoid(),
             title,
             content,
+            user: userId,
+            reactions: {
+              thumbsUp: 0,
+              hooray: 0,
+              heart: 0,
+              rocket: 0,
+              eyes: 0,
+            },
           },
         };
       },
+    },
+    reactionAdded(state, action) {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.find((post) => post.id === postId);
+      if (existingPost) {
+        existingPost.reactions[reaction]++;
+      }
     },
     postUpdated(state, action) {
       const { id, title, content } = action.payload;
@@ -34,38 +71,16 @@ const postsSlice = createSlice({
     postDeleted(state, action) {
       const { id } = action.payload;
 
-      // const tempState = state.filter((post) => post.id !== action.payload);
-      // state = tempState;
-
-      // return state.push(id);
-
-      // state.slice(1, 0);
-      // const tempState = state.filter((post) => post.id === id);
-      // state = tempState;
-
-      // return state.filter((post) => post.id !== id);
-      // state = state.filter((post) => post.id !== action.payload);
-      // posts: state.filter((post) => post.id !== action.payload);
-      // state = [...state, state.filter((post) => post.id !== action.payload)];
-      // const existingPost = state.find((post) => post.id === id);
-      // delete state.existingPost;
-      // existingPost.content = "poop";
-
-      // const ind = state.map((item) => item.id).indexOf(action.id);
-      // const stateTemp = [...state.slice(0, ind), ...state.slice(ind + 1)];
-
-      // return stateTemp;
-
-      //this is the only thing that works.
-      // const existingPost = state.find((post) => post.id === id);
-      // existingPost.content = "";
-      // existingPost.title = "";
-
       return state.filter((post) => post.id !== id);
     },
   },
 });
 
-export const { postAdded, postUpdated, postDeleted } = postsSlice.actions;
+export const {
+  postAdded,
+  postUpdated,
+  postDeleted,
+  reactionAdded,
+} = postsSlice.actions;
 
 export default postsSlice.reducer;
