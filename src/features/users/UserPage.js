@@ -21,7 +21,7 @@ export const UserPage = ({ match }) => {
     </li>
   ));
 
-  console.log(postTitles);
+  //   console.log(postTitles);
 
   return (
     <section>

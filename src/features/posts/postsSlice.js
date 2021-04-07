@@ -7,7 +7,7 @@ const initialState = [
     content: "Hello!",
     user: "2",
     reactions: {
-      thumbsUp: 0,
+      thumbsUp: 1,
       hooray: 0,
       heart: 0,
       rocket: 0,
@@ -20,7 +20,7 @@ const initialState = [
     content: "More text",
     user: "2",
     reactions: {
-      thumbsUp: 0,
+      thumbsUp: 1,
       hooray: 0,
       heart: 0,
       rocket: 0,
