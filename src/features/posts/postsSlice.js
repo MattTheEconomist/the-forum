@@ -5,6 +5,7 @@ const initialState = [
     id: "1",
     title: "First Post!",
     content: "Hello!",
+    user: "2",
     reactions: {
       thumbsUp: 0,
       hooray: 0,
@@ -17,6 +18,20 @@ const initialState = [
     id: "2",
     title: "Second Post",
     content: "More text",
+    user: "2",
+    reactions: {
+      thumbsUp: 0,
+      hooray: 0,
+      heart: 0,
+      rocket: 0,
+      eyes: 0,
+    },
+  },
+  {
+    id: "3",
+    title: "third Post",
+    content: "asdfasdfasdf",
+    user: "1",
     reactions: {
       thumbsUp: 0,
       hooray: 0,
