@@ -8,12 +8,14 @@ const initialState = [
     type: "liked",
     sourceUserId: "1",
     destinationPostId: "2",
+    read: false,
   },
   {
     id: "2",
     type: "liked",
     sourceUserId: "2",
     destinationPostId: "1",
+    read: false,
   },
 ];
 
@@ -24,10 +26,18 @@ const notificationsSlice = createSlice({
     newNotification(state, action) {
       state.push(action.payload);
     },
+    allNotificationsRead(state, action) {
+      state.forEach((notif) => {
+        notif.read = true;
+      });
+    },
   },
 });
 
-export const { newNotification } = notificationsSlice.actions;
+export const {
+  newNotification,
+  allNotificationsRead,
+} = notificationsSlice.actions;
 
 export const selectAllNotifications = (state) => state.notifications;
 

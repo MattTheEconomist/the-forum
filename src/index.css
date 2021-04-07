@@ -257,3 +257,11 @@ button.reaction-button {
 .notification.new {
   background-color: rgba(29, 161, 242, 0.1);
 }
+
+.notification_unread {
+  background-color: rgba(29, 161, 242, 0.1);
+}
+
+.notification_read {
+  background-color: white;
+}

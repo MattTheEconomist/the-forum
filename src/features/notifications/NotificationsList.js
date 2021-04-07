@@ -1,15 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { selectAllNotifications } from "./notificationsSlice";
+import {
+  selectAllNotifications,
+  allNotificationsRead,
+} from "./notificationsSlice";
 import { selectUserById, selectAllUsers } from "../users/usersSlice";
 import { selectPostById } from "../posts/postsSlice";
 import { render } from "@testing-library/react";
 import { Link } from "react-router-dom";
 
 export const NotificationsList = () => {
+  const dispatch = useDispatch();
+
   const notifs = useSelector(selectAllNotifications);
   const users = useSelector(selectAllUsers);
+
+  //   useEffect(()=>{
+
+  //     dispatch(allNotificationsRead())
+  //   })
 
   const getSourceUserName = (notif) => {
     const sourceUserId = notif.sourceUserId;
@@ -19,7 +29,10 @@ export const NotificationsList = () => {
   };
 
   const renderedNotifs = notifs.map((notif, index) => (
-    <li key={`notif ${index}`}>
+    <li
+      key={`notif ${index}`}
+      className={notif.read ? "notification_read" : "notification_unread"}
+    >
       {`${getSourceUserName(notif)} ${notif.type} your post`}{" "}
       <Link to={`/posts/${notif.destinationPostId}`}>View Post</Link>
     </li>
@@ -28,6 +41,9 @@ export const NotificationsList = () => {
   return (
     <section>
       <ul>{renderedNotifs}</ul>
+      <button type="button" onClick={() => dispatch(allNotificationsRead())}>
+        Mark All Read
+      </button>
     </section>
   );
 };
