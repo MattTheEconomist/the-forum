@@ -26,7 +26,7 @@ const notificationsSlice = createSlice({
     newNotification(state, action) {
       state.push(action.payload);
     },
-    allNotificationsRead(state, action) {
+    allNotificationsRead(state) {
       state.forEach((notif) => {
         notif.read = true;
       });

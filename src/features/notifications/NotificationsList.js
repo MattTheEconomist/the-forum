@@ -16,10 +16,13 @@ export const NotificationsList = () => {
   const notifs = useSelector(selectAllNotifications);
   const users = useSelector(selectAllUsers);
 
-  //   useEffect(()=>{
+  const reversedNotifs = notifs.map(
+    (el, ind) => notifs[Math.abs(ind - notifs.length) - 1]
+  );
 
-  //     dispatch(allNotificationsRead())
-  //   })
+  const unreadNotifCount = notifs.filter((notif) => !notif.read).length;
+
+  console.log("unreadNotifCount", unreadNotifCount);
 
   const getSourceUserName = (notif) => {
     const sourceUserId = notif.sourceUserId;
@@ -28,7 +31,7 @@ export const NotificationsList = () => {
     return thisUserObject.name;
   };
 
-  const renderedNotifs = notifs.map((notif, index) => (
+  const renderedNotifs = reversedNotifs.map((notif, index) => (
     <li
       key={`notif ${index}`}
       className={notif.read ? "notification_read" : "notification_unread"}
