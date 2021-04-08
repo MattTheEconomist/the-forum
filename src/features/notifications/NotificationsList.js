@@ -22,7 +22,9 @@ export const NotificationsList = () => {
 
   const unreadNotifCount = notifs.filter((notif) => !notif.read).length;
 
-  console.log("unreadNotifCount", unreadNotifCount);
+  // use notif count here?
+
+  // console.log("unreadNotifCount", unreadNotifCount);
 
   const getSourceUserName = (notif) => {
     const sourceUserId = notif.sourceUserId;

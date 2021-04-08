@@ -1,4 +1,9 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  nanoid,
+  createSelector,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
 
 const initialState = [
   {
@@ -102,5 +107,10 @@ export const selectAllPosts = (state) => state.posts;
 
 export const selectPostById = (state, postId) =>
   state.posts.find((post) => post.id === postId);
+
+export const selectPostsByUser = createSelector(
+  [selectAllPosts, (state, userId) => userId],
+  (posts, userId) => posts.filter((post) => post.user === userId)
+);
 
 export default postsSlice.reducer;

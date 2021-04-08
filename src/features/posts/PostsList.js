@@ -13,16 +13,24 @@ export const PostsList = () => {
     (el, ind) => posts[Math.abs(ind - posts.length) - 1]
   );
 
-  const renderedPosts = reversedPosts.map((post) => (
-    <article className="post-excerpt" key={post.id}>
-      <h3>{post.title}</h3>
-      <p className="post-content">{post.content.substring(0, 100)}</p>
-      <Link to={`/posts/${post.id}`} className="button muted-button">
-        View Post
-      </Link>
-      <PostAuthor userId={post.user} />
-      <ReactionButtons post={post} />
-    </article>
+  let PostPortion = ({ post }) => {
+    return (
+      <article className="post-excerpt" key={post.id}>
+        <h3>{post.title}</h3>
+        <p className="post-content">{post.content.substring(0, 100)}</p>
+        <Link to={`/posts/${post.id}`} className="button muted-button">
+          View Post
+        </Link>
+        <PostAuthor userId={post.user} />
+        <ReactionButtons post={post} />
+      </article>
+    );
+  };
+
+  PostPortion = React.memo(PostPortion);
+
+  const renderedPosts = reversedPosts.map((post, ind) => (
+    <PostPortion post={post} key={`postPortion ${ind}`} />
   ));
 
   return (
