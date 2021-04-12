@@ -57,9 +57,6 @@ nav a:first-of-type {
   flex-direction: row;
 }
 
-/* #titleHeader {
-} */
-
 nav a:hover {
   color: white;
   background: coral;
@@ -267,6 +264,32 @@ button.reaction-button {
 }
 
 /* Notifications list */
+
+#notifsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+#notifsList {
+  margin-left: 1em;
+  margin-right: 3em;
+}
+#markReadButton {
+  margin-top: 2em;
+  background-color: rgb(97, 216, 231);
+  color: black;
+  font-weight: 700;
+  padding: 0.25rem 1.5rem;
+  border-radius: 5px;
+  border: 0px;
+  height: 3em;
+  width: 12em;
+}
+
+#markReadButton:hover {
+  background-color: rgb(78, 170, 182);
+}
 
 .notification {
   border: 1px solid #eee;

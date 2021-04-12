@@ -48,10 +48,16 @@ export const NotificationsList = () => {
 
   return (
     <section>
-      <ul>{renderedNotifs}</ul>
-      <button type="button" onClick={() => dispatch(allNotificationsRead())}>
-        Mark All Read
-      </button>
+      <div id="notifsContainer">
+        <ul id="notifsList">{renderedNotifs}</ul>
+        <button
+          type="button"
+          id="markReadButton"
+          onClick={() => dispatch(allNotificationsRead())}
+        >
+          Mark All Read
+        </button>
+      </div>
     </section>
   );
 };
