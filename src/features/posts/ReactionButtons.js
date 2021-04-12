@@ -13,17 +13,22 @@ const reactionEmoji = {
 export const ReactionButtons = ({ post }) => {
   const dispatch = useDispatch();
 
-  function twoDispatches(name) {
+  function notifDispatches(name) {
+    // console.log(name);
+    let actionDescription;
+
+    if (name === "thumbsUp") {
+      actionDescription = "liked";
+    }
+    if (name === "thumbsDown") {
+      actionDescription = "disliked";
+    }
+    if (name === "heart") {
+      actionDescription = "loved";
+    }
+
     dispatch(reactionAdded({ postId: post.id, reaction: name }));
-    dispatch(
-      newNotification({
-        id: "3",
-        type: "liked",
-        sourceUserId: "2",
-        destinationPostId: post.id,
-        read: false,
-      })
-    );
+    dispatch(newNotification(actionDescription, post.id));
   }
 
   const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
@@ -32,7 +37,7 @@ export const ReactionButtons = ({ post }) => {
         key={name}
         type="button"
         className="muted-button reaction-button"
-        onClick={() => twoDispatches(name)}
+        onClick={() => notifDispatches(name)}
       >
         {emoji} {post.reactions[name]}
       </button>

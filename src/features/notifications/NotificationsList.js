@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllNotifications,
   allNotificationsRead,
+  selectSingleNotif,
+  singleNotificationRead,
 } from "./notificationsSlice";
 import { selectUserById, selectAllUsers } from "../users/usersSlice";
 import { selectPostById } from "../posts/postsSlice";
@@ -20,11 +22,7 @@ export const NotificationsList = () => {
     (el, ind) => notifs[Math.abs(ind - notifs.length) - 1]
   );
 
-  const unreadNotifCount = notifs.filter((notif) => !notif.read).length;
-
-  // use notif count here?
-
-  // console.log("unreadNotifCount", unreadNotifCount);
+  // const unreadNotifCount = notifs.filter((notif) => !notif.read).length;
 
   const getSourceUserName = (notif) => {
     const sourceUserId = notif.sourceUserId;
@@ -39,7 +37,12 @@ export const NotificationsList = () => {
       className={notif.read ? "notification_read" : "notification_unread"}
     >
       {`${getSourceUserName(notif)} ${notif.type} your post`}{" "}
-      <Link to={`/posts/${notif.destinationPostId}`}>View Post</Link>
+      <Link
+        to={`/posts/${notif.destinationPostId}`}
+        onClick={() => dispatch(singleNotificationRead({ notifId: notif.id }))}
+      >
+        View Post
+      </Link>
     </li>
   ));
 

@@ -1,8 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = [
-  // {id: "1", type: "comment", sourceUserId: "0", destinationPost: "2" },
-  // {id: "2", type: "comment", sourceUserId: "1" , destinationPost: "2"},
   {
     id: "1",
     type: "liked",
@@ -23,8 +21,30 @@ const notificationsSlice = createSlice({
   name: "notifications",
   initialState,
   reducers: {
-    newNotification(state, action) {
-      state.push(action.payload);
+    // newNotification(state, action) {
+    //   state.push(action.payload);
+    // },
+    newNotification: {
+      reducer(state, action) {
+        state.push(action.payload);
+      },
+      prepare(reactionType, destinationPostId) {
+        return {
+          payload: {
+            id: nanoid(),
+            type: reactionType,
+            sourceUserId: "1",
+            destinationPostId: destinationPostId,
+            read: false,
+          },
+        };
+      },
+    },
+    singleNotificationRead(state, action) {
+      const { notifId } = action.payload;
+      // const existingNotif = selectSingleNotif(state, notifId);
+      const existingNotif = state.find((notif) => notif.id === notifId);
+      existingNotif.read = true;
     },
     allNotificationsRead(state) {
       state.forEach((notif) => {
@@ -37,8 +57,12 @@ const notificationsSlice = createSlice({
 export const {
   newNotification,
   allNotificationsRead,
+  singleNotificationRead,
 } = notificationsSlice.actions;
 
 export const selectAllNotifications = (state) => state.notifications;
+
+export const selectSingleNotif = (state, notifId) =>
+  state.notifications.find((notif) => notif.id === notifId);
 
 export default notificationsSlice.reducer;
