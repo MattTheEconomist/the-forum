@@ -15,6 +15,7 @@ const initialState = [
       heart: 0,
       thumbsDown: 0,
     },
+    comments: [],
   },
   {
     id: "2",
@@ -25,6 +26,7 @@ const initialState = [
       heart: 0,
       thumbsDown: 0,
     },
+    comments: [],
   },
   {
     id: "3",
@@ -35,6 +37,7 @@ const initialState = [
       heart: 0,
       thumbsDown: 0,
     },
+    comments: [],
   },
 ];
 const postsSlice = createSlice({
@@ -56,6 +59,7 @@ const postsSlice = createSlice({
               heart: 0,
               thumbsDown: 0,
             },
+            comments: [],
           },
         };
       },
@@ -80,6 +84,18 @@ const postsSlice = createSlice({
 
       return state.filter((post) => post.id !== id);
     },
+
+    commentAdded(state, action) {
+      const { authorId, commentContent, postId } = action.payload;
+      // const existingPost = selectPostById(state, postId);
+      const existingPost = state.find((post) => post.id === postId);
+      if (existingPost) {
+        existingPost.comments.push({
+          content: commentContent,
+          authorId: authorId,
+        });
+      }
+    },
   },
 });
 
@@ -88,6 +104,7 @@ export const {
   postUpdated,
   postDeleted,
   reactionAdded,
+  commentAdded,
 } = postsSlice.actions;
 
 export const selectAllPosts = (state) => state.posts;
