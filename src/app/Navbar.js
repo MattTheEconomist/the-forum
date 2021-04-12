@@ -17,8 +17,8 @@ export const Navbar = () => {
 
   return (
     <nav>
-      <section>
-        <h1>the forum.</h1>
+      <section className="navContainer">
+        <h1 id="titleHeader">the forum.</h1>
 
         <div className="navContent">
           <div className="navLinks">

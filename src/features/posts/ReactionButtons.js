@@ -6,10 +6,8 @@ import { newNotification } from "../notifications/notificationsSlice";
 
 const reactionEmoji = {
   thumbsUp: "👍",
-  hooray: "🎉",
   heart: "❤️",
-  rocket: "🚀",
-  eyes: "👀",
+  thumbsDown: "👎",
 };
 
 export const ReactionButtons = ({ post }) => {
