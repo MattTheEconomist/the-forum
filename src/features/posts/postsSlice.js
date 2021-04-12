@@ -8,7 +8,6 @@ import {
 const initialState = [
   {
     id: "1",
-    title: "First Post!",
     content: "Hello!",
     user: "2",
     reactions: {
@@ -21,7 +20,6 @@ const initialState = [
   },
   {
     id: "2",
-    title: "Second Post",
     content: "More text",
     user: "2",
     reactions: {
@@ -34,7 +32,6 @@ const initialState = [
   },
   {
     id: "3",
-    title: "third Post",
     content: "asdfasdfasdf",
     user: "1",
     reactions: {
@@ -54,11 +51,10 @@ const postsSlice = createSlice({
       reducer(state, action) {
         state.push(action.payload);
       },
-      prepare(title, content, userId) {
+      prepare(content, userId) {
         return {
           payload: {
             id: nanoid(),
-            title,
             content,
             user: userId,
             reactions: {
@@ -80,10 +76,9 @@ const postsSlice = createSlice({
       }
     },
     postUpdated(state, action) {
-      const { id, title, content } = action.payload;
+      const { id, content } = action.payload;
       const existingPost = state.find((post) => post.id === id);
       if (existingPost) {
-        existingPost.title = title;
         existingPost.content = content;
       }
     },
