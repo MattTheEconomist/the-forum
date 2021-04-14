@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ReactionButtons } from "./ReactionButtons";
 import { selectPostById, commentAdded } from "./postsSlice";
+import { selectUserById, selectAllUsers } from "../users/usersSlice";
 
 export const SinglePostPage = ({ match }) => {
   const [commentContent, setCommentContent] = useState("");
@@ -13,8 +14,33 @@ export const SinglePostPage = ({ match }) => {
 
   const post = useSelector((state) => selectPostById(state, postId));
 
+  const postAuthorObject = useSelector((state) =>
+    selectUserById(state, post.user)
+  );
+
+  const postAuthorId = postAuthorObject.id;
+
+  const commentNumber = post.comments.length;
+  const renderedCommentNumber =
+    commentNumber === 1
+      ? `${commentNumber} comment`
+      : `${commentNumber} comments`;
+
   const onCommentSaved = () => {
     if (commentContent) {
+      dispatch(
+        commentAdded({
+          authorId: "2",
+          commentContent: commentContent,
+          postId: postId,
+        })
+      );
+      setCommentContent("");
+    }
+  };
+
+  const onEnterKeyed = (e) => {
+    if (e.key === "Enter") {
       dispatch(
         commentAdded({
           authorId: "2",
@@ -30,10 +56,20 @@ export const SinglePostPage = ({ match }) => {
     setCommentContent(e.target.value);
   };
 
-  const renderedComments = post.comments.map((comment) => (
-    <li>
-      <p>{comment.content}</p>
-    </li>
+  const users = useSelector((state) => selectAllUsers(state));
+
+  function findUserbyId(userId) {
+    const currentUser = users.find((user) => user.id === userId);
+    return currentUser.name;
+  }
+
+  const renderedComments = post.comments.map((comment, ind) => (
+    <article key={`comment ${ind}`} className="singleCommentContainer">
+      <Link to={`/users/${comment.authorId}`} className="commentAuthor">
+        {findUserbyId(comment.authorId)}
+      </Link>
+      <p className="commentContent">{comment.content}</p>
+    </article>
   ));
 
   if (!post) {
@@ -47,20 +83,39 @@ export const SinglePostPage = ({ match }) => {
   return (
     <section>
       <article className="post">
-        <p className="post-content">{post.content}</p>
-        <ReactionButtons post={post} />
-        <ul>{renderedComments}</ul>
-        <Link to={`/editPost/${post.id}`} className="button">
+        <div id="singlePostContainer">
+          <Link to={`/users/${postAuthorObject.id}`} id="singlePostAuthor">
+            {postAuthorObject.name}
+          </Link>
+          <p id="singlePostContent">{post.content}</p>
+          <ReactionButtons post={post} />
+          <span id="renderedCommentNumber">{renderedCommentNumber}</span>
+        </div>
+        <div id="allCommentsContainer">
+          <ul>{renderedComments}</ul>
+        </div>
+
+        {/* <Link to={`/editPost/${post.id}`} className="button">
           Edit Post
-        </Link>
-        <label htmlFor="commentContent">Comment: </label>
-        <textarea
-          id="commentContent"
-          placeholder="write a comment . . . "
-          onChange={onCommentContentChanged}
-          value={commentContent}
-        ></textarea>
-        <button onClick={onCommentSaved}>Save Comment</button>
+        </Link> */}
+        <div id="commentForm">
+          <label htmlFor="commentInput">Comment: </label>
+          <textarea
+            id="commentInput"
+            placeholder="write a comment . . . "
+            onChange={onCommentContentChanged}
+            value={commentContent}
+            onKeyDown={onEnterKeyed}
+          ></textarea>
+
+          <button
+            id="saveCommentBtn"
+            className="button"
+            onClick={onCommentSaved}
+          >
+            Save Comment
+          </button>
+        </div>
       </article>
     </section>
   );
