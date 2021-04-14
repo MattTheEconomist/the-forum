@@ -8,7 +8,7 @@ import {
 const initialState = [
   {
     id: "1",
-    content: "Hello!",
+    content: "Hello Forum!",
     user: "2",
     reactions: {
       thumbsUp: 1,
@@ -19,7 +19,7 @@ const initialState = [
   },
   {
     id: "2",
-    content: "More text",
+    content: "This is my second post",
     user: "2",
     reactions: {
       thumbsUp: 1,
@@ -30,7 +30,7 @@ const initialState = [
   },
   {
     id: "3",
-    content: "asdfasdfasdf",
+    content: "This is a third post",
     user: "1",
     reactions: {
       thumbsUp: 0,

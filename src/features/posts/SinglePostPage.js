@@ -31,6 +31,7 @@ export const SinglePostPage = ({ match }) => {
         })
       );
 
+      console.log("dispatching");
       dispatch(newNotification("commented on", postId));
 
       setCommentContent("");

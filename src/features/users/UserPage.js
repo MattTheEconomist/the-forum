@@ -12,28 +12,23 @@ import {
 export const UserPage = ({ match }) => {
   const { userId } = match.params;
 
-  const user = useSelector((state) => selectPostById(state, userId));
-
-  // const postsForUser = useSelector((state) => {
-  //   const allPosts = selectAllPosts(state);
-  //   return allPosts.filter((post) => post.user === userId);
-  // });
+  const user = useSelector((state) => selectUserById(state, userId));
 
   const postsForUser = useSelector((state) => selectPostsByUser(state, userId));
 
   const postTitles = postsForUser.map((post) => (
     <li key={post.id}>
-      <Link to={`/posts/${post.id}`}>{post.title}</Link>
+      <Link to={`/posts/${post.id}`}>{post.content}</Link>
     </li>
   ));
 
-  //   console.log(postTitles);
-
   return (
     <section>
-      <h2>{user.name}</h2>
-
-      <ul>{postTitles}</ul>
+      <div id="profileContainer">
+        <h2 id="userName">{user.name}</h2>
+        <p id="userBio">{user.bio}</p>
+        <ul id="userPosts">{postTitles}</ul>
+      </div>
     </section>
   );
 };
