@@ -36,12 +36,12 @@ export const NotificationsList = () => {
       key={`notif ${index}`}
       className={notif.read ? "notification_read" : "notification_unread"}
     >
-      {`${getSourceUserName(notif)} ${notif.type} your post`}{" "}
+      {`${getSourceUserName(notif)} ${notif.type} `}{" "}
       <Link
         to={`/posts/${notif.destinationPostId}`}
         onClick={() => dispatch(singleNotificationRead({ notifId: notif.id }))}
       >
-        View Post
+        your post
       </Link>
     </li>
   ));

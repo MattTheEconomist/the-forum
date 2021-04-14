@@ -13,6 +13,12 @@ const reactionEmoji = {
 export const ReactionButtons = ({ post }) => {
   const dispatch = useDispatch();
 
+  const commentNumber = post.comments.length;
+  const renderedCommentNumber =
+    commentNumber === 1
+      ? `${commentNumber} comment`
+      : `${commentNumber} comments`;
+
   function notifDispatches(name) {
     // console.log(name);
     let actionDescription;
@@ -43,5 +49,10 @@ export const ReactionButtons = ({ post }) => {
       </button>
     );
   });
-  return <div>{reactionButtons}</div>;
+  return (
+    <div>
+      {reactionButtons}
+      <span id="renderedCommentNumber">{renderedCommentNumber}</span>
+    </div>
+  );
 };

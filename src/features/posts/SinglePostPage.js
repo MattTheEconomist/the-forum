@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ReactionButtons } from "./ReactionButtons";
 import { selectPostById, commentAdded } from "./postsSlice";
 import { selectUserById, selectAllUsers } from "../users/usersSlice";
+import { newNotification } from "../notifications/notificationsSlice";
 
 export const SinglePostPage = ({ match }) => {
   const [commentContent, setCommentContent] = useState("");
@@ -20,12 +21,6 @@ export const SinglePostPage = ({ match }) => {
 
   const postAuthorId = postAuthorObject.id;
 
-  const commentNumber = post.comments.length;
-  const renderedCommentNumber =
-    commentNumber === 1
-      ? `${commentNumber} comment`
-      : `${commentNumber} comments`;
-
   const onCommentSaved = () => {
     if (commentContent) {
       dispatch(
@@ -35,6 +30,9 @@ export const SinglePostPage = ({ match }) => {
           postId: postId,
         })
       );
+
+      dispatch(newNotification("commented on", postId));
+
       setCommentContent("");
     }
   };
@@ -89,7 +87,6 @@ export const SinglePostPage = ({ match }) => {
           </Link>
           <p id="singlePostContent">{post.content}</p>
           <ReactionButtons post={post} />
-          <span id="renderedCommentNumber">{renderedCommentNumber}</span>
         </div>
         <div id="allCommentsContainer">
           <ul>{renderedComments}</ul>

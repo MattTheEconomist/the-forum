@@ -24,6 +24,7 @@ const notificationsSlice = createSlice({
     // newNotification(state, action) {
     //   state.push(action.payload);
     // },
+
     newNotification: {
       reducer(state, action) {
         state.push(action.payload);
@@ -33,7 +34,7 @@ const notificationsSlice = createSlice({
           payload: {
             id: nanoid(),
             type: reactionType,
-            sourceUserId: "1",
+            sourceUserId: "2",
             destinationPostId: destinationPostId,
             read: false,
           },
