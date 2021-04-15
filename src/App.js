@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+  withRouter,
 } from "react-router-dom";
 
 import { Navbar } from "./app/Navbar";
@@ -14,6 +15,7 @@ import { EditPostForm } from "./features/posts/EditPostForm";
 import { UsersList } from "./features/users/UsersList";
 import { UserPage } from "./features/users/UserPage";
 import { NotificationsList } from "./features/notifications/NotificationsList";
+import { AuthPopup } from "./features/auth/AuthPopup";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
             render={() => (
               <React.Fragment>
                 <AddPostForm />
+                <AuthPopup />
                 <PostsList />
               </React.Fragment>
             )}
