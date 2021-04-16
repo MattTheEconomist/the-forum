@@ -2,6 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [
   {
+    id: "0",
+    name: "unknown",
+    bio: "nothing here yet. . .",
+  },
+  {
     id: "1",
     name: "Tianna Jenkins",
     bio: "I like cheese and wine . I also enjoy long walks on the beach",
@@ -22,8 +27,16 @@ const initialState = [
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    addCurrentUsername(state, action) {
+      const { newUsername } = action.payload;
+      const currentUser = state.find((user) => user.id === "0");
+      currentUser.name = newUsername;
+    },
+  },
 });
+
+export const { addCurrentUsername } = usersSlice.actions;
 
 export const selectAllUsers = (state) => state.users;
 

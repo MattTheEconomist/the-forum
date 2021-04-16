@@ -10,6 +10,6 @@ export const store = configureStore({
     posts: postsReducer,
     users: usersReducer,
     notifications: notificationsReducer,
-    auth: authReducer,
+    // auth: authReducer,
   },
 });

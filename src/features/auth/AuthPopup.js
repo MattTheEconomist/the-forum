@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUsername } from "./authSlice";
 import { usernameAdded } from "./authSlice";
 
-export const AuthPopup = () => {
+// export const AuthPopup = (isLoggedIn) => {
+export const AuthPopup = (props) => {
+  const { triggerPopup } = props;
+
   const [usernameField, setUsernameField] = useState("");
+
+  const [isHidden, setIsHidden] = useState(false);
+
+  useEffect(() => {
+    setIsHidden(!triggerPopup);
+
+    console.log("ishidden", isHidden);
+  }, [triggerPopup]);
 
   const dispatch = useDispatch();
 
@@ -40,7 +51,7 @@ export const AuthPopup = () => {
   };
 
   return (
-    <div>
+    <div id="authContainer" className={isHidden ? "hideMe" : "seeMe"}>
       <form>
         <span>Enter a Username to Continue </span>
         <input

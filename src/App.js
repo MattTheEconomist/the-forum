@@ -29,7 +29,6 @@ function App() {
             render={() => (
               <React.Fragment>
                 <AddPostForm />
-                <AuthPopup />
                 <PostsList />
               </React.Fragment>
             )}
