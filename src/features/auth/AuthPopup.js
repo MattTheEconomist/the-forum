@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUsername } from "./authSlice";
-import { usernameAdded } from "./authSlice";
+// import { selectUsername } from "./authSlice";
+import { addCurrentUsername } from "../users/usersSlice";
 
 // export const AuthPopup = (isLoggedIn) => {
 export const AuthPopup = (props) => {
@@ -14,8 +14,6 @@ export const AuthPopup = (props) => {
 
   useEffect(() => {
     setIsHidden(!triggerPopup);
-
-    console.log("ishidden", isHidden);
   }, [triggerPopup]);
 
   const dispatch = useDispatch();
@@ -23,26 +21,26 @@ export const AuthPopup = (props) => {
   const onEnterKeyed = (e) => {
     if (e.key === "Enter") {
       dispatch(
-        usernameAdded({
-          username: usernameField,
-          userId: "0",
+        addCurrentUsername({
+          newUsername: usernameField,
         })
       );
       setUsernameField("");
+      setIsHidden(true);
     }
   };
 
   const onNameSaved = (e) => {
     e.preventDefault();
-    console.log(e);
+    console.log(usernameField);
     if (usernameField) {
       dispatch(
-        usernameAdded({
-          username: usernameField,
-          userId: "0",
+        addCurrentUsername({
+          newUsername: usernameField,
         })
       );
       setUsernameField("");
+      setIsHidden(true);
     }
   };
 
@@ -52,19 +50,21 @@ export const AuthPopup = (props) => {
 
   return (
     <div id="authContainer" className={isHidden ? "hideMe" : "seeMe"}>
-      <form>
-        <span>Enter a Username to Continue </span>
-        <input
-          type="text"
-          value={usernameField}
-          onKeyDown={onEnterKeyed}
-          onChange={onNameFieldChanged}
-          placeholder="enter user name here. . . "
-        ></input>
-        <button className="button" onClick={onNameSaved}>
-          Save Username
-        </button>
-      </form>
+      <div id="authContainer" className="inFocus">
+        <form>
+          <span>Enter a Username to Continue </span>
+          <input
+            type="text"
+            value={usernameField}
+            onKeyDown={onEnterKeyed}
+            onChange={onNameFieldChanged}
+            placeholder="enter user name here. . . "
+          ></input>
+          <button className="button" onClick={onNameSaved}>
+            Save Username
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

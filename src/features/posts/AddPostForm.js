@@ -36,7 +36,6 @@ export const AddPostForm = () => {
       setTriggerPopup(true);
       //   const newUsername = window.prompt("please enter a user name");
       //   dispatch(addCurrentUsername({ newUsername }));
-      //   console.log(newUsername);
     }
   };
 
