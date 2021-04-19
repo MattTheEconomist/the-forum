@@ -34,22 +34,31 @@ export const AddPostForm = () => {
 
   return (
     <>
-      <section>
-        <h2>Add a New Post</h2>
-        <form>
-          <label htmlFor="postContent">Content:</label>
-          <textarea
-            id="postContent"
-            name="postContent"
-            placeholder="what's on your mind? "
-            value={content}
-            onChange={onContentChanged}
-            onClick={onLoginCheck}
-          />
-          <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
-            Save Post{" "}
-          </button>
-        </form>
+      <section id="newPostForm">
+        <div id="newPostContainer">
+          <h2>Add a New Post</h2>
+          <form>
+            <label id="postContentLabel" htmlFor="postContent">
+              Content:{" "}
+            </label>
+            <textarea
+              id="postContent"
+              name="postContent"
+              placeholder="what's on your mind? "
+              value={content}
+              onChange={onContentChanged}
+              onClick={onLoginCheck}
+            />
+            <button
+              type="button"
+              onClick={onSavePostClicked}
+              disabled={!canSave}
+              className="button"
+            >
+              Save Post{" "}
+            </button>
+          </form>
+        </div>
       </section>
 
       <AuthPopup

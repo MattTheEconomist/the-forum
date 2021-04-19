@@ -27,14 +27,19 @@ export const UserPage = ({ match }) => {
   const editBioButton = (userId) => {
     if (userId === "0") {
       return (
-        <button className="button" onClick={() => setEditBio(true)}>
-          {" "}
-          Edit Bio{" "}
+        <button className="button" onClick={() => editBioAction()}>
+          Edit Bio
         </button>
       );
     } else {
       return null;
     }
+  };
+
+  const editBioAction = () => {
+    const bioOutput = document.getElementById("userBio");
+    bioOutput.disabled = false;
+    console.log("hi");
   };
 
   return (
@@ -43,7 +48,12 @@ export const UserPage = ({ match }) => {
         <h2 id="userName">{user.name}</h2>
         <div id="bioContainer">
           {/* <p id="userBio">{user.bio}</p> */}
-          <input id="userBio" type="text" value={user.bio}></input>
+          <input
+            id="userBio"
+            type="text"
+            value={user.bio}
+            disabled={true}
+          ></input>
           {editBioButton(userId)}
         </div>
 

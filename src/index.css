@@ -32,17 +32,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* 
-body > *:not(#authContainer) {
-  filter: blur(2px);
-} */
 
 #authContainer {
   background-color: white;
   padding: 2rem;
   border: 4px solid grey;
-
-  /* filter: blur(0px) !important; */
 }
 
 #authForm {
@@ -171,6 +165,21 @@ section {
 
 section h1 {
   font-size: 3rem;
+}
+
+/* add post form  */
+
+#newPostContainer {
+  background-color: rgb(199, 236, 231);
+  padding: 2px;
+  margin-top: 2px;
+}
+
+#postContent {
+  margin-right: 3rem;
+  margin-left: 3rem;
+  width: 29rem;
+  height: 4rem;
 }
 
 /* Posts list */
