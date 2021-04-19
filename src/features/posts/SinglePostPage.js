@@ -19,20 +19,22 @@ export const SinglePostPage = ({ match }) => {
     selectUserById(state, post.user)
   );
 
-  const postAuthorId = postAuthorObject.id;
+  // const postAuthorId = postAuthorObject.id;
+
+  const sourceUserId = "0";
 
   const onCommentSaved = () => {
     if (commentContent) {
       dispatch(
         commentAdded({
-          authorId: "2",
+          authorId: "0",
           commentContent: commentContent,
           postId: postId,
         })
       );
 
       console.log("dispatching");
-      dispatch(newNotification("commented on", postId));
+      dispatch(newNotification("commented on", postId, sourceUserId));
 
       setCommentContent("");
     }
@@ -42,7 +44,7 @@ export const SinglePostPage = ({ match }) => {
     if (e.key === "Enter") {
       dispatch(
         commentAdded({
-          authorId: "2",
+          authorId: "0",
           commentContent: commentContent,
           postId: postId,
         })

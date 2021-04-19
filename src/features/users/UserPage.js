@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -10,6 +10,8 @@ import {
 } from "../posts/postsSlice";
 
 export const UserPage = ({ match }) => {
+  const [editBio, setEditBio] = useState(false);
+
   const { userId } = match.params;
 
   const user = useSelector((state) => selectUserById(state, userId));
@@ -22,11 +24,29 @@ export const UserPage = ({ match }) => {
     </li>
   ));
 
+  const editBioButton = (userId) => {
+    if (userId === "0") {
+      return (
+        <button className="button" onClick={() => setEditBio(true)}>
+          {" "}
+          Edit Bio{" "}
+        </button>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <section>
       <div id="profileContainer">
         <h2 id="userName">{user.name}</h2>
-        <p id="userBio">{user.bio}</p>
+        <div id="bioContainer">
+          {/* <p id="userBio">{user.bio}</p> */}
+          <input id="userBio" type="text" value={user.bio}></input>
+          {editBioButton(userId)}
+        </div>
+
         <ul id="userPosts">{postTitles}</ul>
       </div>
     </section>

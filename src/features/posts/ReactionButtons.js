@@ -1,8 +1,11 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { reactionAdded } from "./postsSlice";
 import { newNotification } from "../notifications/notificationsSlice";
+
+import { selectUserById } from "../users/usersSlice";
+import { AuthPopup } from "../auth/AuthPopup";
 
 const reactionEmoji = {
   thumbsUp: "👍",
@@ -11,6 +14,9 @@ const reactionEmoji = {
 };
 
 export const ReactionButtons = ({ post }) => {
+  const currentUser = useSelector((state) => selectUserById(state, "0"));
+  const currentName = currentUser.name;
+
   const dispatch = useDispatch();
 
   const commentNumber = post.comments.length;
@@ -20,7 +26,6 @@ export const ReactionButtons = ({ post }) => {
       : `${commentNumber} comments`;
 
   function notifDispatches(name) {
-    // console.log(name);
     let actionDescription;
 
     if (name === "thumbsUp") {
@@ -33,8 +38,10 @@ export const ReactionButtons = ({ post }) => {
       actionDescription = "loved";
     }
 
+    const sourceUserId = "0";
+
     dispatch(reactionAdded({ postId: post.id, reaction: name }));
-    dispatch(newNotification(actionDescription, post.id));
+    dispatch(newNotification(actionDescription, post.id, sourceUserId));
   }
 
   const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
@@ -50,9 +57,11 @@ export const ReactionButtons = ({ post }) => {
     );
   });
   return (
-    <div>
-      {reactionButtons}
-      <span id="renderedCommentNumber">{renderedCommentNumber}</span>
-    </div>
+    <>
+      <div>
+        {reactionButtons}
+        <span id="renderedCommentNumber">{renderedCommentNumber}</span>
+      </div>
+    </>
   );
 };

@@ -29,12 +29,12 @@ const notificationsSlice = createSlice({
       reducer(state, action) {
         state.push(action.payload);
       },
-      prepare(reactionType, destinationPostId) {
+      prepare(reactionType, destinationPostId, sourceUserId) {
         return {
           payload: {
             id: nanoid(),
             type: reactionType,
-            sourceUserId: "2",
+            sourceUserId: sourceUserId,
             destinationPostId: destinationPostId,
             read: false,
           },
