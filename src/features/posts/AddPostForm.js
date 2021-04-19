@@ -8,22 +8,80 @@ import { AuthPopup } from "../auth/AuthPopup";
 import { postAdded } from "./postsSlice";
 
 // export const Modal = (props) => {
-export const Modal = ({ children }) => {
-  // const { children } = props;
-  const overlayElement = document.getElementById("overlay");
-  const rootElement = document.getElementById("root");
+// export const Modal = ({ children }) => {
+// export const Modal = (props) => {
+//   const { triggerPopup, setTriggerPopup } = props;
+//   const [usernameField, setUsernameField] = useState("");
+//   const [isHidden, setIsHidden] = useState(false);
 
-  if (children) {
-    overlayElement.className = "";
-    rootElement.className = "blurMe";
+//   const dispatch = useDispatch();
 
-    return ReactDOM.createPortal(children, overlayElement);
-  }
-  overlayElement.className = "hidden";
-  rootElement.className = "";
-  console.log(overlayElement);
-  return null;
-};
+//   const onEnterKeyed = (e) => {
+//     if (e.key === "Enter") {
+//       dispatch(
+//         addCurrentUsername({
+//           newUsername: usernameField,
+//         })
+//       );
+//       setUsernameField("");
+//       setTriggerPopup(false);
+//     }
+//   };
+
+//   const onNameSaved = (e) => {
+//     e.preventDefault();
+//     console.log(usernameField);
+//     if (usernameField) {
+//       dispatch(
+//         addCurrentUsername({
+//           newUsername: usernameField,
+//         })
+//       );
+//       setUsernameField("");
+//       setTriggerPopup(false);
+//     }
+//   };
+
+//   const onNameFieldChanged = (e) => {
+//     setUsernameField(e.target.value);
+//   };
+
+//   const overlayElement = document.getElementById("overlay");
+//   const rootElement = document.getElementById("root");
+
+//   let children = null;
+
+//   if (triggerPopup) {
+//     children = (
+//       <div id="authContainer" className="inFocus">
+//         <form>
+//           <span>Enter a Username to Continue </span>
+//           <input
+//             type="text"
+//             value={usernameField}
+//             onKeyDown={onEnterKeyed}
+//             onChange={onNameFieldChanged}
+//             placeholder="enter user name here. . . "
+//           ></input>
+//           <button className="button" onClick={onNameSaved}>
+//             Save Username
+//           </button>
+//         </form>
+//       </div>
+//     );
+//   }
+
+//   if (children) {
+//     overlayElement.className = "";
+//     rootElement.className = "blurMe";
+
+//     return ReactDOM.createPortal(children, overlayElement);
+//   }
+//   overlayElement.className = "hidden";
+//   rootElement.className = "";
+//   console.log(overlayElement);
+//   return null;
+// };
 
 export const AddPostForm = () => {
   const [content, setContent] = useState("");
@@ -50,25 +108,7 @@ export const AddPostForm = () => {
   const onLoginCheck = () => {
     if (currentName === "unknown") {
       setTriggerPopup(true);
-      setModalContent(
-        <div>
-          YOLO
-          <br />
-          <AuthPopup triggerPopup={triggerPopup} />
-          <button
-            // onClick={() => this.setState({ modalContent: null })}
-            onClick={() => setModalContent(null)}
-            type="button"
-          >
-            ok
-          </button>
-        </div>
-      );
-
-      // overlayElement.classList.remove("hidden")
-
-      //   const newUsername = window.prompt("please enter a user name");
-      //   dispatch(addCurrentUsername({ newUsername }));
+      setModalContent(true);
     }
   };
 
@@ -93,8 +133,12 @@ export const AddPostForm = () => {
           </button>
         </form>
       </section>
-      {/* <AuthPopup triggerPopup={triggerPopup} /> */}
-      <Modal>{modalContent}</Modal>
+
+      {/* <Modal triggerPopup={triggerPopup} setTriggerPopup={setTriggerPopup} /> */}
+      <AuthPopup
+        triggerPopup={triggerPopup}
+        setTriggerPopup={setTriggerPopup}
+      />
     </>
   );
 };
