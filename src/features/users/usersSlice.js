@@ -4,7 +4,7 @@ const initialState = [
   {
     id: "0",
     name: "unknown",
-    bio: "nothing here yet. . .",
+    bio: "nothing here yet, click to add a bio!",
   },
   {
     id: "1",
@@ -33,10 +33,15 @@ const usersSlice = createSlice({
       const currentUser = state.find((user) => user.id === "0");
       currentUser.name = newUsername;
     },
+    editBio(state, action) {
+      const { bioText } = action.payload;
+      const currentUser = state.find((user) => user.id === "0");
+      currentUser.bio = bioText;
+    },
   },
 });
 
-export const { addCurrentUsername } = usersSlice.actions;
+export const { addCurrentUsername, editBio } = usersSlice.actions;
 
 export const selectAllUsers = (state) => state.users;
 

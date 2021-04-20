@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { selectUserById } from "../users/usersSlice";
+import { selectUserById, editBio } from "../users/usersSlice";
 import {
   selectAllPosts,
   selectPostById,
@@ -10,11 +10,45 @@ import {
 } from "../posts/postsSlice";
 
 export const UserPage = ({ match }) => {
-  const [editBio, setEditBio] = useState(false);
+  const [editBioAvailable, setEditBioAvailable] = useState(false);
 
   const { userId } = match.params;
 
   const user = useSelector((state) => selectUserById(state, userId));
+
+  const [bioText, setBioText] = useState(user.bio);
+
+  const dispatch = useDispatch();
+
+  const onBioTextChanged = (e) => {
+    // const bioInput = document.getElementById("userBio");
+
+    if (user.id === "0") {
+      setBioText(e.target.value);
+    }
+    // newText = e.target.value;
+    // bioInput.value = bioText;
+    // dispatch(editBio({ bioText: bioText}));
+  };
+
+  // const onBioChangeEnabled = () => {
+  // console.log("hi");
+  // if (user.id === "0") {
+  //   bioInput.enabled = true;
+  // }
+  // };
+
+  const onBioSaved = (e) => {
+    if (e.key === "Enter") {
+      if (user.id === "0") {
+        dispatch(editBio({ bioText: bioText }));
+      }
+      // if (bioText) {
+      // setBioText(user.bio);
+      // setBioText(e.target.value);
+      // }
+    }
+  };
 
   const postsForUser = useSelector((state) => selectPostsByUser(state, userId));
 
@@ -24,37 +58,21 @@ export const UserPage = ({ match }) => {
     </li>
   ));
 
-  const editBioButton = (userId) => {
-    if (userId === "0") {
-      return (
-        <button className="button" onClick={() => editBioAction()}>
-          Edit Bio
-        </button>
-      );
-    } else {
-      return null;
-    }
-  };
-
-  const editBioAction = () => {
-    const bioOutput = document.getElementById("userBio");
-    bioOutput.disabled = false;
-    console.log("hi");
-  };
-
   return (
     <section>
       <div id="profileContainer">
         <h2 id="userName">{user.name}</h2>
         <div id="bioContainer">
-          {/* <p id="userBio">{user.bio}</p> */}
-          <input
+          <textarea
             id="userBio"
-            type="text"
-            value={user.bio}
-            disabled={true}
-          ></input>
-          {editBioButton(userId)}
+            // value={bioText}
+            placeholder={bioText}
+            // disabled={true}
+            // onClick={onBioChangeEnabled}
+            onChange={onBioTextChanged}
+            // onChange={() => dispatch(editBio({ bioText: bioText }))}
+            onKeyDown={onBioSaved}
+          />
         </div>
 
         <ul id="userPosts">{postTitles}</ul>

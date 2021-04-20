@@ -308,9 +308,12 @@ button.reaction-button {
   padding: 2rem;
   justify-content: top;
   font-size: 0.8rem;
-  word-wrap: break-word;
-  max-width: 200px;
+  /* word-wrap: break-word; */
+  width: 300px;
+  max-width: 350px;
+  height: 150px;
   margin-right: 2px;
+  word-wrap: break-word;
 }
 
 #userPosts {
