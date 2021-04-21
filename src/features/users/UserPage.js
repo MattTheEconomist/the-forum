@@ -71,7 +71,7 @@ export const UserPage = ({ match }) => {
         onClick={onBioClicked}
       />
     ) : (
-      <textarea value={bioText} id="userBio" />
+      <div id="userBio">{bioText}</div>
     );
   return (
     <section>

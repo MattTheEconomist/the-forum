@@ -3,7 +3,7 @@
 :root {
   --root-color: teal;
   --dim-color: #852420;
-  --bright-color: #d1433d;
+  --bright-color: #e44e48;
 }
 #overlay.hidden {
   display: none;
@@ -102,7 +102,7 @@ nav a:first-of-type {
 
 nav a:hover {
   color: white;
-  background: coral;
+  background: var(--bright-color);
 }
 
 .navContent {

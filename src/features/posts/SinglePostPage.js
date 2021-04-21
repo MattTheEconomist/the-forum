@@ -25,6 +25,8 @@ export const SinglePostPage = ({ match }) => {
 
   const onCommentSaved = () => {
     if (commentContent) {
+      dispatch(newNotification("commented on", postId, sourceUserId));
+
       dispatch(
         commentAdded({
           authorId: "0",
@@ -33,15 +35,13 @@ export const SinglePostPage = ({ match }) => {
         })
       );
 
-      console.log("dispatching");
-      dispatch(newNotification("commented on", postId, sourceUserId));
-
       setCommentContent("");
     }
   };
 
   const onEnterKeyed = (e) => {
     if (e.key === "Enter") {
+      dispatch(newNotification("commented on", postId, sourceUserId));
       dispatch(
         commentAdded({
           authorId: "0",
