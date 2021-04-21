@@ -2,6 +2,8 @@
 
 :root {
   --root-color: teal;
+  --dim-color: #852420;
+  --bright-color: #d1433d;
 }
 #overlay.hidden {
   display: none;
@@ -311,14 +313,41 @@ button.reaction-button {
   /* word-wrap: break-word; */
   width: 300px;
   max-width: 350px;
-  height: 150px;
+  height: 100px;
   margin-right: 2px;
   word-wrap: break-word;
+  background-color: white;
+  z-index: 3;
+  position: absolute;
+}
+
+#directionsBox {
+  position: absolute;
+  z-index: 2;
+  background-color: var(--dim-color);
+  width: 200px;
+  padding: 0.5rem;
+  transform: translate(0, 100px);
+  border-radius: 5px;
+  color: white;
+}
+
+.slideIn {
+  /* background-color: rgb(0, 70, 70); */
+  animation: slide-in 2s forwards;
+}
+
+@keyframes slide-in {
+  0% {
+  }
+  100% {
+    transform: translate(0px, 200px);
+  }
 }
 
 #userPosts {
   grid-column: 2/2;
-  margin-left: -15rem;
+  margin-left: 3rem;
 }
 
 /* Notifications list */

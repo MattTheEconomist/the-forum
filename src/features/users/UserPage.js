@@ -10,8 +10,6 @@ import {
 } from "../posts/postsSlice";
 
 export const UserPage = ({ match }) => {
-  const [editBioAvailable, setEditBioAvailable] = useState(false);
-
   const { userId } = match.params;
 
   const user = useSelector((state) => selectUserById(state, userId));
@@ -20,33 +18,38 @@ export const UserPage = ({ match }) => {
 
   const dispatch = useDispatch();
 
-  const onBioTextChanged = (e) => {
-    // const bioInput = document.getElementById("userBio");
+  let directionsBox = document.getElementById("directionsBox");
 
-    if (user.id === "0") {
-      setBioText(e.target.value);
+  const primaryProfile = user.id === "0" ? true : false;
+
+  const onBioClicked = () => {
+    if (primaryProfile) {
+      if (directionsBox) {
+        directionsBox.className = "slideIn";
+      } else {
+        directionsBox = document.getElementById("directionsBox");
+        directionsBox.className = "slideIn";
+      }
     }
-    // newText = e.target.value;
-    // bioInput.value = bioText;
-    // dispatch(editBio({ bioText: bioText}));
   };
 
-  // const onBioChangeEnabled = () => {
-  // console.log("hi");
-  // if (user.id === "0") {
-  //   bioInput.enabled = true;
-  // }
-  // };
+  const onBioTextChanged = (e) => {
+    if (primaryProfile) {
+      setBioText(e.target.value);
+      if (directionsBox) {
+        if (e.key === "Enter") {
+          directionsBox.className = "";
+        }
+      }
+    }
+  };
 
   const onBioSaved = (e) => {
     if (e.key === "Enter") {
-      if (user.id === "0") {
+      if (primaryProfile) {
         dispatch(editBio({ bioText: bioText }));
+        directionsBox.className = "";
       }
-      // if (bioText) {
-      // setBioText(user.bio);
-      // setBioText(e.target.value);
-      // }
     }
   };
 
@@ -58,21 +61,27 @@ export const UserPage = ({ match }) => {
     </li>
   ));
 
+  const bioTextArea =
+    user.id === "0" ? (
+      <textarea
+        id="userBio"
+        value={bioText}
+        onChange={onBioTextChanged}
+        onKeyDown={onBioSaved}
+        onClick={onBioClicked}
+      />
+    ) : (
+      <textarea value={bioText} id="userBio" />
+    );
   return (
     <section>
       <div id="profileContainer">
         <h2 id="userName">{user.name}</h2>
         <div id="bioContainer">
-          <textarea
-            id="userBio"
-            // value={bioText}
-            placeholder={bioText}
-            // disabled={true}
-            // onClick={onBioChangeEnabled}
-            onChange={onBioTextChanged}
-            // onChange={() => dispatch(editBio({ bioText: bioText }))}
-            onKeyDown={onBioSaved}
-          />
+          <div id="textAreaContainer">{bioTextArea}</div>
+          <div id="directionsBox">
+            <span>Press 'Enter' to Save Changes</span>
+          </div>
         </div>
 
         <ul id="userPosts">{postTitles}</ul>
