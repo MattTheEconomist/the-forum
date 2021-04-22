@@ -9,8 +9,7 @@ const initialState = [
   {
     id: "1",
     name: "Kanye West",
-    bio:
-      "I am the voice of a generation. I also enjoy the occasional fish stick. ",
+    bio: "I am the voice of a generation.  ",
   },
   {
     id: "2",

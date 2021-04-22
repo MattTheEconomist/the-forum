@@ -1,20 +1,20 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = [
-  {
-    id: "1",
-    type: "liked",
-    sourceUserId: "1",
-    destinationPostId: "2",
-    read: false,
-  },
-  {
-    id: "2",
-    type: "liked",
-    sourceUserId: "2",
-    destinationPostId: "1",
-    read: false,
-  },
+  // {
+  //   id: "1",
+  //   type: "liked",
+  //   sourceUserId: "1",
+  //   destinationPostId: "2",
+  //   read: false,
+  // },
+  // {
+  //   id: "2",
+  //   type: "liked",
+  //   sourceUserId: "2",
+  //   destinationPostId: "1",
+  //   read: false,
+  // },
 ];
 
 const notificationsSlice = createSlice({

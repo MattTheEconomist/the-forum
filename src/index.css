@@ -341,7 +341,7 @@ button.reaction-button {
   0% {
   }
   100% {
-    transform: translate(0px, 200px);
+    transform: translate(0px, 175px);
   }
 }
 

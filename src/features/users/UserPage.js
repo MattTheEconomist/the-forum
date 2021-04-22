@@ -17,6 +17,7 @@ import kanye from "./images/kanye.PNG";
 import kardashian from "./images/kardashian.PNG";
 import lizzo from "./images/lizzo.PNG";
 import tyra from "./images/tyra.PNG";
+import smiley from "./images/smiley.PNG";
 
 export const UserPage = ({ match }) => {
   const { userId } = match.params;
@@ -84,6 +85,9 @@ export const UserPage = ({ match }) => {
     );
 
   function picFromId(userId) {
+    if (userId === "0") {
+      return smiley;
+    }
     if (userId === "1") {
       return kanye;
     }
@@ -113,15 +117,16 @@ export const UserPage = ({ match }) => {
         <h2 id="userName">{user.name}</h2>
         {/* <h2>{user.id}</h2> */}
         {/* <img src={`./another.png`} /> */}
-        <img src={picFromId(user.id)} />
+
         <div id="bioContainer">
+          <img src={picFromId(user.id)} />
+          <p>{`${user.name}'s bio`}</p>
           <div id="textAreaContainer">{bioTextArea}</div>
           <div id="directionsBox">
             <span>Press 'Enter' to Save Changes</span>
           </div>
         </div>
-
-        <ul id="userPosts">{postTitles}</ul>
+        <ul id="userPosts">recent posts{postTitles}</ul>
       </div>
     </section>
   );

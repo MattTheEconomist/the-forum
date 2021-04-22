@@ -42,6 +42,7 @@ export const AddPostForm = () => {
 
   const onLoginCheck = () => {
     if (currentName === "unknown") {
+      setTriggerPopup(true);
     }
   };
 
