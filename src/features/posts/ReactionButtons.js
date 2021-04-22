@@ -52,7 +52,8 @@ export const ReactionButtons = ({ post }) => {
         className="muted-button reaction-button"
         onClick={() => notifDispatches(name)}
       >
-        {emoji} {post.reactions[name]}
+        {emoji}
+        {post.reactions[name]}
       </button>
     );
   });

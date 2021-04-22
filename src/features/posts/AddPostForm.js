@@ -1,10 +1,18 @@
 import ReactDOM from "react-dom";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserById, addCurrentUsername } from "../users/usersSlice";
+import {
+  selectUserById,
+  addCurrentUsername,
+  selectAllUsers,
+} from "../users/usersSlice";
 import { AuthPopup } from "../auth/AuthPopup";
 
-import { postAdded } from "./postsSlice";
+import { postAdded, reactionAdded } from "./postsSlice";
+
+import { TriggerReaction } from "../fake-interactions/TriggerReaction";
+import { newNotification } from "../notifications/notificationsSlice";
+// import {reactionAdded} from "../notifications/notificationsSlice"
 
 export const AddPostForm = () => {
   const [content, setContent] = useState("");
@@ -14,23 +22,48 @@ export const AddPostForm = () => {
 
   const currentUser = useSelector((state) => selectUserById(state, "0"));
   const currentName = currentUser.name;
+  const users = useSelector(selectAllUsers);
 
   const onContentChanged = (e) => setContent(e.target.value);
 
   const onSavePostClicked = () => {
     if (content) {
       dispatch(postAdded(content, "0"));
-      setContent("");
+      setContent(content);
+      fakeReactions();
     }
   };
 
   const onLoginCheck = () => {
     if (currentName === "unknown") {
-      setTriggerPopup(true);
+      // setTriggerPopup(true);
     }
   };
 
   const canSave = Boolean(content);
+
+  const fakeReactions = () => {
+    const allFakeReactions = TriggerReaction(users);
+    // console.log(allFakeReactions);
+    for (let i = 0; i < allFakeReactions.length; i++) {
+      const thisReact = allFakeReactions[i];
+
+      dispatch(
+        reactionAdded({
+          postId: thisReact.postId,
+          reaction: thisReact.reactionName,
+        })
+      );
+
+      dispatch(
+        newNotification(
+          thisReact.description,
+          thisReact.postId,
+          thisReact.sourceUser
+        )
+      );
+    }
+  };
 
   return (
     <>

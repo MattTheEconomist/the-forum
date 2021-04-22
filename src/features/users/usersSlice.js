@@ -8,19 +8,41 @@ const initialState = [
   },
   {
     id: "1",
-    name: "Tianna Jenkins",
-    bio: "I like cheese and wine . I also enjoy long walks on the beach",
+    name: "Kanye West",
+    bio:
+      "I am the voice of a generation. I also enjoy the occasional fish stick. ",
   },
   {
     id: "2",
-    name: "Kevin Grant",
-    bio: "I'm into motorcycles. I also enjoy long walks on the beach",
+    name: "Tyra Banks",
+    bio: "I enjoy long walks on the beach",
   },
   {
     id: "3",
-    name: "Madison Price",
+    name: "Kim Kardashian",
     bio:
-      "I don't like anything . That's not true I enjoy long walks on the beach",
+      "Without social media I'd have literally nothing to put out for my fans",
+  },
+  {
+    id: "4",
+    name: "Elon Musk",
+    bio:
+      "I build rockets and make tequila. Maybe next week I'll do scented soaps; poeple will buy it. whatever. ",
+  },
+  {
+    id: "6",
+    name: "Chrissy Teigan",
+    bio: "I'm pretty mean to John Legend all the time",
+  },
+  {
+    id: "7",
+    name: "Lizzo",
+    bio: "I make great music, its in every commercial now",
+  },
+  {
+    id: "8",
+    name: "Jennifer Lopez",
+    bio: "How am I still in the news?",
   },
 ];
 
