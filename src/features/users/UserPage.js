@@ -3,11 +3,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { selectUserById, editBio } from "../users/usersSlice";
-import {
-  selectAllPosts,
-  selectPostById,
-  selectPostsByUser,
-} from "../posts/postsSlice";
+import { selectPostsByUser } from "../posts/postsSlice";
+// import { unwrapResult } from "@reduxjs/toolkit";
+// import { another } from "another.png";
+// import another from "./another.png";
+// import another from "./another.PNG";
+
+// import { chrissy } from "./images/chrissy.png";
+import chrissy from "./images/chrissy.PNG";
+import elon from "./images/elon.PNG";
+import jlo from "./images/jlo.PNG";
+import kanye from "./images/kanye.PNG";
+import kardashian from "./images/kardashian.PNG";
+import lizzo from "./images/lizzo.PNG";
+import tyra from "./images/tyra.PNG";
 
 export const UserPage = ({ match }) => {
   const { userId } = match.params;
@@ -73,10 +82,38 @@ export const UserPage = ({ match }) => {
     ) : (
       <div id="userBio">{bioText}</div>
     );
+
+  function picFromId(userId) {
+    if (userId === "1") {
+      return kanye;
+    }
+    if (userId === "2") {
+      return tyra;
+    }
+    if (userId === "3") {
+      return kardashian;
+    }
+    if (userId === "4") {
+      return elon;
+    }
+    if (userId === "6") {
+      return chrissy;
+    }
+    if (userId === "7") {
+      return lizzo;
+    }
+    if (userId === "8") {
+      return jlo;
+    }
+  }
+
   return (
     <section>
       <div id="profileContainer">
         <h2 id="userName">{user.name}</h2>
+        {/* <h2>{user.id}</h2> */}
+        {/* <img src={`./another.png`} /> */}
+        <img src={picFromId(user.id)} />
         <div id="bioContainer">
           <div id="textAreaContainer">{bioTextArea}</div>
           <div id="directionsBox">

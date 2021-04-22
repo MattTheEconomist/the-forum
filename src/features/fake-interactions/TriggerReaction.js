@@ -4,6 +4,7 @@ import { store } from "../../app/store";
 
 import { reactionAdded } from "../posts/postsSlice";
 import { newNotification } from "../notifications/notificationsSlice";
+import commentBank from "./CommentBank";
 
 export function TriggerReaction(users) {
   let userIds = users.map((user) => user.id);
@@ -15,7 +16,6 @@ export function TriggerReaction(users) {
   const indexMax = userIds.length - 1;
 
   while (selectedUsers.length < 4) {
-    //   for (let i = 0; i < 6; i++) {
     const indexPoz = Math.ceil(Math.random() * indexMax);
     const currentUser = userIds[indexPoz];
     if (!selectedUsers.includes(currentUser)) {
@@ -24,13 +24,8 @@ export function TriggerReaction(users) {
   }
 
   const allPosts = store.getState().posts;
-  //   console.log(allPosts);
-  //   const latestPostId = allPosts.pop().id
-
-  //   const latestPostId = "0";
 
   const latestPostId = allPosts[allPosts.length - 1].id;
-  //   console.log(alternate);
 
   const reactionDescriptions = ["liked", "disliked", "loved"];
 
@@ -42,8 +37,6 @@ export function TriggerReaction(users) {
         Math.floor(Math.random() * reactionDescriptions.length)
       ];
 
-    // dispatch(reactionAdded({ postId: latestPostId, reaction: randReaction }));
-    // dispatch(newNotification(randReaction, latestPostId, selectedUsers[i]));
     allReactions.push({
       postId: latestPostId,
       description: randDescription,
