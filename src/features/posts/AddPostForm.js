@@ -8,9 +8,10 @@ import {
 } from "../users/usersSlice";
 import { AuthPopup } from "../auth/AuthPopup";
 
-import { postAdded, reactionAdded } from "./postsSlice";
+import { postAdded, reactionAdded, commentAdded } from "./postsSlice";
 
 import { TriggerReaction } from "../fake-interactions/TriggerReaction";
+import { TriggerComments } from "../fake-interactions/TriggerComments";
 import { newNotification } from "../notifications/notificationsSlice";
 // import {reactionAdded} from "../notifications/notificationsSlice"
 
@@ -30,13 +31,17 @@ export const AddPostForm = () => {
     if (content) {
       dispatch(postAdded(content, "0"));
       setContent(content);
-      fakeReactions();
+
+      fakeComments();
+
+      setTimeout(() => {
+        fakeReactions();
+      }, 2000);
     }
   };
 
   const onLoginCheck = () => {
     if (currentName === "unknown") {
-      // setTriggerPopup(true);
     }
   };
 
@@ -60,6 +65,29 @@ export const AddPostForm = () => {
           thisReact.description,
           thisReact.postId,
           thisReact.sourceUser
+        )
+      );
+    }
+  };
+
+  const fakeComments = () => {
+    const allFakeComments = TriggerComments();
+    for (let i = 0; i < allFakeComments.length; i++) {
+      const thisComment = allFakeComments[i];
+
+      dispatch(
+        commentAdded({
+          authorId: thisComment.sourceUserId,
+          commentContent: thisComment.content,
+          postId: thisComment.postId,
+        })
+      );
+
+      dispatch(
+        newNotification(
+          "commented on",
+          thisComment.postId,
+          thisComment.sourceUserId
         )
       );
     }
