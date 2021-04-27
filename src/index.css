@@ -333,7 +333,6 @@ button.reaction-button {
 }
 
 .slideIn {
-  /* background-color: rgb(0, 70, 70); */
   animation: slide-in 2s forwards;
 }
 
